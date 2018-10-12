@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class ChunkSpawner : MonoBehaviour {
     int spawnPos = 0;
-    float timer = 0;
+    public Transform target;
     public GameObject[] chunks = {};
-	// Use this for initialization
-	void Start () {
-        Instantiate(chunks[Random.Range(0, 2)], new Vector3(0,0,0), Quaternion.identity);
+    // Use this for initialization
+    void Start() {
+        Instantiate(chunks[1], new Vector3(0,0,0), Quaternion.identity);
         spawnPos += 20;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timer += Time.deltaTime;
+        
 
-        if (timer > 5)
+        if (target.transform.position.x > spawnPos - 25)
         {
-            timer = 0;
-            Instantiate(chunks[Random.Range(0, 2)], new Vector3(spawnPos, 0, 0), Quaternion.identity);
+           
+            Instantiate(chunks[Random.Range(0, 8)], new Vector3(spawnPos, 0, 0), Quaternion.identity);
             spawnPos += 20;
         }
 	}
