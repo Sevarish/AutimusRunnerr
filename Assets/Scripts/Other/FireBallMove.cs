@@ -5,6 +5,9 @@ using UnityEngine;
 public class FireBallMove : MonoBehaviour {
     float destructTimer = 0;
     PlayerMovement scriptReference;
+    float distanceCheck = 0.5f;
+    [SerializeField]
+    LayerMask player;
 	// Use this for initialization
 	void Start () {
         scriptReference = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -14,9 +17,9 @@ public class FireBallMove : MonoBehaviour {
     void Update()
     {
         transform.Translate(30 * Time.deltaTime, 0, 0);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+        if (Physics.Raycast(transform.position,Vector3.right,distanceCheck, player))
         {
+            Debug.Log("oof");
             Destroy(this.gameObject);
             scriptReference.isSlowed = true;
         }

@@ -7,9 +7,13 @@ public class PlayerMovement : MonoBehaviour {
     Rigidbody rb;
     public float moveSpeed;
     float normalMoveSpeed = 9;
+    float maxMoveSpeed = 16;
     float jumpThrust = 500f;
     public float jumpTimer = 1.5f;
     public bool isSlowed = false;
+    public bool powerUpActive = false;
+    float powerUpTimer = 0;
+    bool doOnce = true;
     float slowTimer = 0;
     SpriteRenderer sprt;
     Animator anim;
@@ -20,7 +24,8 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         sprt = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-	}
+        Physics.IgnoreLayerCollision(0, 8, true); 
+    }
 	
 	// Update is called once per frame
 	private void Update () {
@@ -52,13 +57,36 @@ public class PlayerMovement : MonoBehaviour {
         if (isSlowed == true)
         {
             slowTimer += Time.deltaTime;
-            moveSpeed = 5;
+            if (doOnce)
+            {
+                moveSpeed -= 4;
+                doOnce = false;
+            }
             if (slowTimer > 4)
             {
                 moveSpeed = normalMoveSpeed;
                 isSlowed = false;
                 slowTimer = 0;
+                doOnce = true;
             }
+        }
+
+
+        if (powerUpActive)
+        {
+            powerUpTimer += Time.deltaTime;
+            moveSpeed = maxMoveSpeed;
+            if (powerUpTimer > 5)
+            {
+                powerUpTimer = 0;
+                powerUpActive = false;
+                moveSpeed = normalMoveSpeed;
+            }
+        }
+
+        if (playerT.position.y < 1.02f)
+        {
+           playerT.Translate(0,1,0);
         }
         
 	}

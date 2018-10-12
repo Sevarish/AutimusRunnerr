@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DragonScript : MonoBehaviour {
-    float movement = 4f;
+    public float movement = 4f;
     float timer;
     float timer2;
     public GameObject fireBall;
@@ -23,14 +23,11 @@ public class DragonScript : MonoBehaviour {
         }
         transform.Translate(movement * Time.deltaTime, 0, 0);
 
-
-
-        if (timer2 > 8.5f)
+        if (timer2 > 8.2f)
         {
             Instantiate(fireBall, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             timer2 = 0;
         }
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -38,6 +35,7 @@ public class DragonScript : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             Destroy(other.gameObject);
+            Application.LoadLevel("StartMenu");
         }
     }
 }

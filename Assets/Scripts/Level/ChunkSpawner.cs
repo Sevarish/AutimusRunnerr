@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChunkSpawner : MonoBehaviour {
-    int spawnPos = 0;
+    public int spawnPos = 0;
     public Transform target;
     public GameObject[] chunks = {};
     // Use this for initialization
@@ -19,7 +19,7 @@ public class ChunkSpawner : MonoBehaviour {
         if (target.transform.position.x > spawnPos - 25)
         {
            
-            Instantiate(chunks[Random.Range(0, 8)], new Vector3(spawnPos, 0, 0), Quaternion.identity);
+            Instantiate(chunks[Random.Range(0, 9)], new Vector3(spawnPos, 0, 0), Quaternion.identity);
             spawnPos += 20;
         }
 	}
